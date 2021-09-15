@@ -1,0 +1,114 @@
+class EightPuzzleState:
+    """
+    The S Puzzle 
+    
+    """
+
+    def __init__( self, board ):
+
+        self.board =board
+        self.possiblechilden=[] #stack
+        self.closedlist=[]
+    
+    def __str__(self):
+        s = ""
+        for i in range(len(self.board)):
+            for j in range(len(self.board)):
+                s += str(self.board[i][j])+' '
+            s += "\n"
+        return s
+    def __eq__(self, other):
+        return self.board == other.board
+   
+    def printCell(self, i, j):
+        """Prints the cell"""
+        print(self.board[i][j])
+    def getCell(self, i, j):
+        """Returns a cell's value"""
+        return self.board[i][j]
+
+    def setCell(self, i, j, value):
+        """Sets a cell's value"""
+        self.board[i][j] = value
+
+    def CellSwap(self,x,y,direction):
+        """create a list of the tiple then swap and convert back to tuple"""
+        list_board = [list(self.board[0]),list(self.board[1]),list(self.board[2])]
+        temp= self.getCell(x,y)
+        
+        if direction == "left":
+            list_board[x][y] =  list_board[x][y-1]
+            list_board[x][y-1] = temp
+        elif direction == "right":
+            list_board[x][y] =  list_board[x][y+1]
+            list_board[x][y+1] = temp
+        elif direction == "up":
+            list_board[x][y] =  list_board[x-1][y]
+            list_board[x-1][y] = temp
+        elif direction == "down":
+            list_board[x][y] =  list_board[x+1][y]
+            list_board[x+1][y] = temp
+        return EightPuzzleState( (tuple(list_board[0]),tuple(list_board[1]),tuple(list_board[2])))
+    
+    def isGoal( self ):
+        count = 1
+        for row in range( 3 ):
+            for col in range( 3 ):
+                if count != self.board[row][col]:
+                    return False
+                count += 1
+        return True
+    
+def getValidMoves(x,y):
+    st=[]
+    if x==0:
+        st.append('down')
+    if y==0:
+        st.append('right')
+    if y==2:
+        st.append('left')
+    if x==2:
+        st.append('up')
+    if x==1:
+        st.append('up')
+        st.append('down')
+    if y==1:
+        st.append('left')
+        st.append('right')
+        
+    return st
+    
+def generateChildren(parentNode):
+    for i in range(len(parentNode.board)):
+        for j in range(len(parentNode.board)):
+            possible_moves = getValidMoves(i,j)
+            
+            while(possible_moves):
+                newStatePuzzle= parentNode.CellSwap(i,j,possible_moves.pop())
+                if newStatePuzzle not in parentNode.possiblechilden:
+                    parentNode.possiblechilden.append(newStatePuzzle)
+
+#open_list = []
+#closed_list = []  
+def DFS(puzzle):
+    
+    open_list = []
+    closed_list = []  
+    open_list.append(puzzle)
+
+    while open_list:
+        node = open_list.pop()
+        if node.isGoal():
+            print(node)
+            return True
+        else:
+            generateChildren(node)
+            closed_list.append(node)
+            print(node)
+            for p in node.possiblechilden:
+                if p in open_list:
+                    node.possiblechilden.remove(p)
+                if p in closed_list:
+                    node.possiblechilden.remove(p)
+            for p in node.possiblechilden:
+                open_list.append(p)

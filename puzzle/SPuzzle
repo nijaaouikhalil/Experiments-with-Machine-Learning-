@@ -1,0 +1,76 @@
+class EightPuzzleState:
+    """
+    The S Puzzle 
+    
+    """
+
+    def __init__( self, numbers ):
+
+        self.board =((1, 2, 3),(4, 5, 6),(7,8,9))
+    def __str__(self):
+        s = ""
+        for b in self.board:
+            for i in b:
+                s += str(board[i][j])+' '
+            s += "\n"
+        return s
+    def __eq__(self, other):
+        if self.board == other.board:
+            return True
+        else:
+            return False
+    def printCell(self, i, j):
+        """Prints the cell"""
+        print(self.board[i][j])
+    def getCell(self, i, j):
+        """Returns a cell's value"""
+        return self.board[i][j]
+
+    def setCell(self, i, j, value):
+        """Sets a cell's value"""
+        self.board[i][j] = value
+
+    def CellSwap(self,x,y,direction):
+        """create a list of the tiple then swap and convert back to tuple"""
+        list_board = list(self.board)
+        temp= board.getCell(x,y)
+        
+        if direction in self.getValidMoves():
+            if direction == "left":
+                list_board[x][y] =  list_board[x-1][y]
+                list_board[x-1][y] = temp
+            elif direction == "right":
+                list_board[x][y] =  list_board[x+1][y]
+                list_board[x+1][y] = temp
+            elif direction == "up":
+                list_board[x][y] =  list_board[x][y+1]
+                list_board[x][y+1] = temp
+            elif direction == "down":
+                list_board[x][y] =  list_board[x][y-1]
+                list_board[x][y-1] = temp
+        else:
+            print("invalid direction")
+        return Tuple(list_board)
+    
+    def getValidMoves(self,x,y):
+        st=[]
+        if(x==0):
+            st.append('down')
+        if(y==0):
+            st.append('right')
+        if(y==2):
+            st.append('left')
+        if(x==2):
+            st.append('up')
+        return st
+
+
+
+
+
+
+
+
+
+
+       
