@@ -1,5 +1,15 @@
 # Experiments-with-Machine-Learning-
 
+##Description:
+Use scikit-learn  machine  learning  framework  to experiment with two different machine learning algorithms using sentiment data set
+Use a collection of customer reviews from six of the review topics.
+-Data preprocessing + split the data into a training and an evaluation part
+*Plot the distribution of the number of the instances in each class.
+*Run 3 different ML models: 
+a) Naive Bayes Classifier 
+b) Base-DT: a baseline Decision Tree using entropy as decision criterion and using default values for the rest of the parameters. 
+c) Best-DT: a better performing Decision Tree
+* Error Analysis
 
 ## Team Members
 Karl-Joey Chami *27736657*
