@@ -1,6 +1,6 @@
 # Experiments-with-Machine-Learning-
 
-##Description:
+## Description:
 Use scikit-learn  machine  learning  framework  to experiment with two different machine learning algorithms using sentiment data set
 Use a collection of customer reviews from six of the review topics.
 -Data preprocessing + split the data into a training and an evaluation part
